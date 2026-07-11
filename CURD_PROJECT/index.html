@@ -49,6 +49,13 @@
             let data = await response.json();
             console.log(data);
             alert("Post Created Successfully")
+
+            document.getElementById('output').innerHTML=`
+            <h2>Post Created Sussfully</h2>
+            <p>Id : ${data.id} </p>
+            <p>title: ${data.title}</p>
+            <p>body:${data.body}</p>
+            <p>user Id: ${data.userId}`;
         
         }
 
@@ -66,6 +73,14 @@
             let data = await response.json()
             console.log(data)
             alert("Post Updated")
+            document.getElementById('output').innerHTML=`
+            <h2>Post Created Sussfully</h2>
+            <p>Id : ${data.id} </p>
+            <p>title: ${data.title}</p>
+            <p>body:${data.body}</p>
+            <p>user Id: ${data.userId}`;
+
+            
         }
 
         // Delete:
@@ -76,6 +91,9 @@
             });
             console.log(response);
             alert("Post Deleted Successfully")
+
+            document.getElementById('output').innerHTML=`
+            <h2>Deleted the record</h2>`
 
         }
     </script>
