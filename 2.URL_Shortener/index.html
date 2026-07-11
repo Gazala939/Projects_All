@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortner</title>
+</head>
+<body>
+    <div>
+        <h1>🔗 URL SHORTENER</h1>
+
+        <input type="text" id="longUrl" placeholder="Enter Long URL">
+        <button onclick="shortenURL()">Shorten URL</button>
+
+        <div class="result">
+            <p><strong>Orignal URL: </strong></p>
+            <p id="original"></p>
+
+            <p><strong>Short URL: </strong></p>
+
+            <a id="shortUrl" target="_blank"></a>
+            <button onclick="copyURL()">Copy</button>
+        </div>
+    </div>
+
+    <script>
+        async function shortenURL(){
+            let longUrl = document.getElementById('longUrl').value;
+
+            if(longUrl == ""){
+                alert("Enter URL");
+                return;
+            }
+            try{
+                let response = await fetch("https://tinyurl.com/api-create.php?url=" + encodeURIComponent(longUrl))
+
+                let shortURL = await response.text();
+                document.getElementById('original').innerHTML=longUrl;
+
+                let link = document.getElementById('shortUrl');
+
+                link.href = shortURL;
+                link.innerHTML = shortURL
+            }
+            catch{
+                alert("Something went Wrong")
+            }
+        }
+
+        function copyURL(){
+            let text = document.getElementById('shortUrl').innerHTML;
+            navigator.clipboard.writeText(text)
+            alert("Copied Successfully")
+        }
+    </script>
+</body>
+</html>
