@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API CURD</title>
+</head>
+<body>
+    <h1>Fetch API CURD Operations</h1>
+
+    <button onClick="getPost()">Get Post</button>
+    <button onClick="createPost()">Post Create</button>
+    <button onClick="updatePost()">PUT Update</button>
+    <button onClick="deletePost()">DELETE Post</button>
+
+    <hr>
+    <div id="output"></div>
+
+    <script>
+        async function getPost(){
+            let response = await fetch("https://jsonplaceholder.typicode.com/posts")
+
+            let datas = await response.json();
+
+            console.log(datas)
+
+            let output = document.getElementById('output');
+            output.innerHTML="";
+
+            datas.slice(0,5).forEach(function(data){
+
+                output.innerHTML +=
+                `<h3>${data.title}</h3>
+                <p>${data.body}</p>
+                <hr>`;
+            })
+        }
+
+        async function createPost(){
+            let response=await fetch("https://jsonplaceholder.typicode.com/posts",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({
+                    title:"JavaScript",
+                    body:"Learning JavaScript",
+                    userId:1
+                })
+            })
+            let data = await response.json();
+            console.log(data);
+            alert("Post Created Successfully")
+        
+        }
+
+        async function updatePost(){
+            let response = await fetch("https://jsonplaceholder.typicode.com/posts/1",{
+                method:"PUT",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({
+                    id : 1,
+                    title:"Updated Title",
+                    body:"Updated body",
+                    userId:1
+                })
+            })
+            let data = await response.json()
+            console.log(data)
+            alert("Post Updated")
+        }
+
+        // Delete:
+
+        async function deletePost(){
+            let response=await fetch("https://jsonplaceholder.typicode.com/posts/1",{
+                method:"DELETE"
+            });
+            console.log(response);
+            alert("Post Deleted Successfully")
+
+        }
+    </script>
+</body>
+</html>
