@@ -78,6 +78,18 @@ button {
 button:hover { 
   background: #128C7E; 
 }
+
+.time{
+
+    font-size:11px;
+
+    color:gray;
+
+    text-align:right;
+
+    margin-top:5px;
+
+}
   </style>
 </head>
 <body>
@@ -85,6 +97,7 @@ button:hover {
     <div class="header">💬 Chat Website</div>
     <div id="chatBox" class="chat-box">
       <div class="bot">Hello! 👋 Welcome to the chat.</div>
+      <div id="getTime()"></div>
     </div>
     <div class="input-area">
       <input type="text" id="message" placeholder="Type your message...">
@@ -99,10 +112,20 @@ button:hover {
         let text = input.value.trim();
         if(text === "") return;
 
+        function getTime(){
+            let now = new Date();
+            return now.toLocaleTimeString([],{
+                hour:"2-digit",
+               minute:"2-digit"
+            });
+        }
+
   // User message
        let userMsg = document.createElement("div");
        userMsg.className = "user";
-       userMsg.innerText = "You said: " + text;
+       userMsg.innerHTML = `${text}
+       <div class="time">${getTime()}</div>`;
+
        chatBox.appendChild(userMsg);
        input.value = "";
        chatBox.scrollTop = chatBox.scrollHeight;
@@ -117,7 +140,7 @@ setTimeout(() => {
     let message = text.toLowerCase().trim();
 
     if(message === "hi" || message === "hello"){
-        botMsg.innerText = "Bot: Hi 👋";
+        botMsg.innerHTML = `Hi 👋<div class="time">${getTime()}</div>`;
     }
     else if(message === "how are you" || message === "how are u"){
         botMsg.innerText = "Bot: I am fine, thanks! 😊\nHow are you?";
